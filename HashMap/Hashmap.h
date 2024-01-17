@@ -3,6 +3,7 @@
 #include <list>
 #include <vector>
 #include <optional>
+#include <iterator>
 
 namespace kron
 {
@@ -57,6 +58,11 @@ namespace kron
 
             bucket.push_front(pair);
             _s++;
+            if (_s > _rehashterm)
+            {
+                rehash();
+                _rehashterm *= 2;
+            }
         }
 
         bool erase(const Key& k)
@@ -85,12 +91,36 @@ namespace kron
 
         void rehash()
         {
+            _d.resize(_d.size() * 2);
+
+            for (size_t bucket = 0; bucket < _d.size(); ++bucket)
+            {
+                for (auto it = _d[bucket].begin(); it != _d[bucket].end(); ++it)
+                {
+                    auto newHash = (*it).first % _d.size();
+                    if (newHash != bucket)
+                    {
+                        auto elementToMove = std::move(*it);
+
+                        // Remove the element from the source container
+                        it = _d[bucket].erase(it);
+
+                        // Move the element to the destination container
+                        _d[newHash].push_front(std::move(elementToMove));
+
+                        if(it == _d[bucket].end())
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
             return;
         }
 
         size_t _s = 0;
 
-        size_t _rehashterm = 10;
+        size_t _rehashterm = 8;
 
         std::vector<std::list<std::pair<size_t, Type>>> _d; //ideally we'd use a C array but that can be the next iteration of it
 
