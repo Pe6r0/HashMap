@@ -1,5 +1,6 @@
 #include "pch.h"
-#include "../HashMap/Hashmap.h"
+#include "../Lib/Hashmap.h"
+#include "../Lib/SortedMap.h"
 
 #include <optional>
 
@@ -82,4 +83,13 @@ namespace kron
         EXPECT_EQ(1, simpleOne['z']);
         EXPECT_EQ(250, simpleOne['f']);
     }
+
+    /// <summary>
+    /// Sorted Map
+    /// </summary>
+    
+    struct SortedMapTestFixture : public testing::Test
+    {
+        OrderedMap<char, int> simpleOne;
+    };
 }

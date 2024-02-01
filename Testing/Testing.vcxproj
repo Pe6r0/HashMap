@@ -25,6 +25,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <ProjectName>Testing</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -112,7 +113,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HashMap\HashMap.vcxproj">
+    <ProjectReference Include="..\Lib\Lib.vcxproj">
       <Project>{ddee2ab5-6658-4d15-9660-6a62fbd91a7b}</Project>
     </ProjectReference>
   </ItemGroup>
